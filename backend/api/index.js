@@ -2,10 +2,11 @@ require('dotenv').config()
 
 const express = require("express");
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // ERC721 - ABI
-const TSHIRT_ABI = require("../contract/artifacts/contracts/TShirtNFT.sol/TShirtNFT.json");
+// const TSHIRT_ABI = require("../../contract/artifacts/contracts/TShirtNFT.sol/TShirtNFT.json");
+const TSHIRT_ABI = require("./TShirtNFT.json");
 
 // Server Key - T-Shirt company
 const SERVER_KEY = process.env.SERVER_KEY;
@@ -15,6 +16,10 @@ const NFT_CONTRACT_ADDRESS = process.env.TSHIRT_NFT_CONTRACT_ADDRESS;
 
 const app = express();
 app.use(express.json());
+
+app.get("/", (request, response) => {
+    response.send({"Hello": "world"});
+ });
 
 
 app.get("/status", (request, response) => {
@@ -53,6 +58,8 @@ app.get("/create/:user_address", async (request, response) => {
 });
 
 
-app.listen(PORT, () => {
-    console.log("Server Listening on PORT:", PORT);
-});
+
+app.listen(PORT, () => console.log("Server Listening on PORT:", PORT));
+
+
+module.exports = app;
