@@ -1,8 +1,12 @@
 require('dotenv').config()
 
+const ethers = require('ethers');
 const express = require("express");
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
+
+const app = express();
+
 
 // ERC721 - ABI
 // const TSHIRT_ABI = require("../../contract/artifacts/contracts/TShirtNFT.sol/TShirtNFT.json");
@@ -14,12 +18,11 @@ const SERVER_KEY = process.env.SERVER_KEY;
 // NFT Contract Address
 const NFT_CONTRACT_ADDRESS = process.env.TSHIRT_NFT_CONTRACT_ADDRESS;
 
-const app = express();
+
 app.use(express.json());
 
-app.get("/", (request, response) => {
-    response.send({"Hello": "world"});
- });
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 
 app.get("/status", (request, response) => {
@@ -35,7 +38,7 @@ app.get("/status", (request, response) => {
 app.get("/create/:user_address", async (request, response) => {
 
     try {
-        let user_address = req.params['user_address'];
+        let user_address = request.params['user_address'];
 
         let provider = new ethers.JsonRpcProvider("https://spicy-rpc.chiliz.com/");
 
@@ -53,13 +56,10 @@ app.get("/create/:user_address", async (request, response) => {
     
     } catch (error) {
         console.log(error);
-        res.status(500).send('Error when minting a new NFT.');
+        request.status(500).send('Error when minting a new NFT.');
     }
 });
 
-
-
 app.listen(PORT, () => console.log("Server Listening on PORT:", PORT));
-
 
 module.exports = app;
