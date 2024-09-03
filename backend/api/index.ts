@@ -46,9 +46,12 @@ app.get("/create/:user_address", async (request, response) => {
         );
 
         let response = await contract.buyTShirt(user_address);
+        await response.wait();
+        
+        response.send({
+            "hash": response["hash"],
+        });
 
-        console.log(response);
-    
     } catch (error) {
         console.log(error);
         request.status(500).send('Error when minting a new NFT.');
