@@ -45,11 +45,11 @@ app.get("/create/:user_address", async (request, response) => {
             signer
         );
 
-        let response = await contract.buyTShirt(user_address);
-        await response.wait();
+        let res = await contract.buyTShirt(user_address);
+        await res.wait();
         
         response.send({
-            "hash": response["hash"],
+            "hash": res["hash"],
         });
 
     } catch (error) {
