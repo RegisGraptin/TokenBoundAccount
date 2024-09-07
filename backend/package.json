@@ -12,7 +12,8 @@
     "@tokenbound/sdk": "^0.5.4",
     "dotenv": "^16.4.5",
     "ethers": "^6.13.2",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "viem": "^2.21.3"
   },
   "devDependencies": {
     "@types/node": "^22.5.2"
